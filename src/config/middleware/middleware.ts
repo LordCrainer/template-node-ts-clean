@@ -11,9 +11,13 @@ const configure = async (app: express.Application) => {
   app.use(compress());
   app.use(methodOverride());
   app.use(morganMiddleware);
-  /* app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true })); */
-  app.use(express.urlencoded({ extended: true }));
+  // express middleware
+  app.use(
+    express.urlencoded({
+      extended: false,
+    })
+  );
+  app.use(express.json());
   app.use(helmet());
   app.use(cors.set());
 

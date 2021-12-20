@@ -4,6 +4,7 @@ import UserModel, { IUserModel } from "../../User/domain/user.model";
 import { IAuthService } from "../domain/auth.interface";
 import UserRepositoryMongo from "../../User/infraestructure/user.repository.mongo";
 import { IUserRepository } from "../../User/domain/user.repository";
+import Logger from "../../../config/lib/logger";
 
 /**
  * @export
@@ -36,6 +37,7 @@ const AuthService = (userRepository: IUserRepository): IAuthService => {
 
         return saved;
       } catch (error) {
+        Logger.error(`AuthService: ${error}`);
         throw new Error(error);
       }
     },

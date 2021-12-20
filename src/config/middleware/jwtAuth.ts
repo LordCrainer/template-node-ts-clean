@@ -27,7 +27,7 @@ const isAuthenticated = (
   res: Response,
   next: NextFunction
 ): void => {
-  const token: any = req.headers["x-access-token"];
+  const token: any = req.headers["access-token"];
 
   if (token) {
     try {

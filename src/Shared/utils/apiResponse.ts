@@ -8,7 +8,7 @@ const result = (
   status: number = 200,
   cookie?: any
 ): void => {
-  res.status(status).json({ data, success: true });
+  res.status(status).json({ status, data, success: true });
 };
 const error = (
   res: Response,

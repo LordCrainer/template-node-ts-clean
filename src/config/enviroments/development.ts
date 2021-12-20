@@ -3,7 +3,9 @@ import { Enviroments } from "./enviroment.interface";
 const configuration: Enviroments = {
   dataBase: {
     mongo: {
-      url: "mongodb://soporte:Support@127.0.0.1:27017/lntv",
+      url:
+        process.env.MONGO_URL ||
+        "mongodb://soporte:Support@127.0.0.1:27017/lntv",
     },
   },
   server: {
@@ -18,7 +20,7 @@ const configuration: Enviroments = {
     origin: process.env.CORS_ORIGIN || "localhost:4000/",
     optionsSuccessStatus: 200,
   },
-  secret: process.env.SECRET || "develop"
+  secret: process.env.SECRET || "develop",
 };
 
 export default configuration;

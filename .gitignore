@@ -1,0 +1,9 @@
+.env
+*.mov
+*.flv
+*.mxf
+*.mp4
+dist/
+data/
+logs/
+node_modules

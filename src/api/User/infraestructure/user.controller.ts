@@ -3,6 +3,10 @@ import UserService from "../aplication/user.service";
 import { IUserModel } from "../domain/user.model";
 import { NextFunction, Request, Response } from "express";
 import { apiResponse } from "../user.modules";
+import UserRepositoryMongo from "./user.repository.mongo";
+
+const inyectionUserService = new UserService(UserRepositoryMongo);
+
 /**
  * @export
  * @param {Request} req
@@ -16,7 +20,7 @@ const findAll = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const users: IUserModel[] = await UserService.findAll();
+    const users: IUserModel[] = await inyectionUserService.findAll();
     apiResponse.result(res, users, 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));
@@ -36,9 +40,8 @@ const findOne = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const user = await UserService.findOne(req.params.id);
-
-    res.status(200).json(user);
+    const user = await inyectionUserService.findOne(req.params.id);
+    apiResponse.result(res, user, 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));
   }
@@ -57,9 +60,31 @@ const create = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const user: IUserModel = await UserService.insert(req.body);
+    const user: IUserModel = await inyectionUserService.create(req.body);
+    apiResponse.result(res, user, 200);
+  } catch (error) {
+    next(apiResponse.error(res, error.message.status, error.message));
+  }
+};
 
-    res.status(201).json(user);
+/**
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ * @returns {Promise < void >}
+ */
+const update = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const isDeleted = await inyectionUserService.update(
+      req.params.id,
+      req.body
+    );
+    apiResponse.result(res, isDeleted, 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));
   }
@@ -78,12 +103,11 @@ const remove = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const user: IUserModel = await UserService.remove(req.params.id);
-
-    res.status(200).json(user);
+    const isDeleted = await inyectionUserService.remove(req.params.id);
+    apiResponse.result(res, isDeleted, 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));
   }
 };
 
-export { findAll, findOne, remove, create };
+export { findAll, findOne, remove, create, update };

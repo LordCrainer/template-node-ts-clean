@@ -21,14 +21,14 @@ export interface IUserRepository {
    * @returns {Promise<IUserModel>}
    * @memberof IUserService
    */
-  updateOne(id: string, model: IUserModel): Promise<Boolean>;
+  updateOne(id: string, body: IUserModel): Promise<Boolean>;
 
   /**
    * @param {IUserModel} IUserModel
    * @returns {Promise<IUserModel>}
    * @memberof IUserService
    */
-  save(model: IUserModel): Promise<IUserModel>;
+  save(body: IUserModel): Promise<IUserModel>;
 
   /**
    * @param {string} id

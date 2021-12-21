@@ -16,19 +16,24 @@ export interface IUserService {
    * @returns {Promise<IUserModel>}
    * @memberof IUserService
    */
-  findOne(code: string): Promise<{ name: string, email: string }>;
+  findOne(code: string): Promise<{ name: string; email: string }>;
 
   /**
    * @param {IUserModel} IUserModel
    * @returns {Promise<IUserModel>}
    * @memberof IUserService
    */
-  insert(IUserModel: IUserModel): Promise<IUserModel>;
-
+  create(body: IUserModel): Promise<IUserModel>;
   /**
-   * @param {string} id
-   * @returns {Promise<IUserModel>}
+   * @param {IUserModel} IUserModel
+   * @returns {Promise<Boolean>}
    * @memberof IUserService
    */
-  remove(id: string): Promise<IUserModel>;
+  update(id: string, body: IUserModel): Promise<Boolean>;
+  /**
+   * @param {string} id
+   * @returns {Promise<Boolean>}
+   * @memberof IUserService
+   */
+  remove(id: string): Promise<Boolean>;
 }

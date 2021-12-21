@@ -1,14 +1,16 @@
 import Joi from "joi";
 import { Types } from "mongoose";
+import { IUserModel } from "../domain/user.interface";
 
 // import CopounValidation from "../domain/copoun.validation";
-import userModel, { IUserModel } from "../domain/user.model";
+import userModel from "../domain/user.model";
+
 import { IUserRepository } from "../domain/user.repository";
 
 const UserRepositoryMongo: IUserRepository = {
-  async find(id: string) {
+  async find(page = 0, limit = 0) {
     try {
-      return await userModel.find({ _id: id });
+      return await userModel.find().limit(limit).skip(page);
     } catch (error) {
       throw new Error(error.message);
     }

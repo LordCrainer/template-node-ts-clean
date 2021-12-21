@@ -1,9 +1,10 @@
 import UserService from "../aplication/user.service";
 // import { HttpError } from "../../../../config/error";
-import { IUserModel } from "../domain/user.model";
+import { IUserModel } from "../domain/user.interface";
 import { NextFunction, Request, Response } from "express";
 import { apiResponse } from "../user.modules";
 import UserRepositoryMongo from "./user.repository.mongo";
+import userDto from "../domain/user.dto";
 
 const inyectionUserService = new UserService(UserRepositoryMongo);
 
@@ -21,7 +22,7 @@ const findAll = async (
 ): Promise<void> => {
   try {
     const users: IUserModel[] = await inyectionUserService.findAll();
-    apiResponse.result(res, users, 200);
+    apiResponse.result(res, userDto.multi(users), 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));
   }
@@ -41,7 +42,7 @@ const findOne = async (
 ): Promise<void> => {
   try {
     const user = await inyectionUserService.findOne(req.params.id);
-    apiResponse.result(res, user, 200);
+    apiResponse.result(res, userDto.single(user), 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));
   }
@@ -61,7 +62,7 @@ const create = async (
 ): Promise<void> => {
   try {
     const user: IUserModel = await inyectionUserService.create(req.body);
-    apiResponse.result(res, user, 200);
+    apiResponse.result(res, userDto.single(user), 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));
   }
@@ -80,11 +81,11 @@ const update = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const isDeleted = await inyectionUserService.update(
+    const isUpdated = await inyectionUserService.update(
       req.params.id,
       req.body
     );
-    apiResponse.result(res, isDeleted, 200);
+    apiResponse.result(res, isUpdated, 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));
   }

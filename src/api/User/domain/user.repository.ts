@@ -1,20 +1,18 @@
-import { IUserModel } from "./user.model";
+import { IUserModel } from "./user.interface";
 
 export interface IUserRepository {
   /**
    * @returns {Promise<IUserModel[]>}
    * @memberof IUserService
    */
-  find(id: string): Promise<IUserModel[]>;
+  find(page: number, limit: number): Promise<IUserModel[]>;
 
   /**
    * @param {string} id
    * @returns {Promise<IUserModel>}
    * @memberof IUserService
    */
-  findOne(
-    id: string
-  ): Promise<IUserModel>;
+  findOne(id: string): Promise<IUserModel>;
 
   /**
    * @param {string} id

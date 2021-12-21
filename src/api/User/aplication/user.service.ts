@@ -1,7 +1,7 @@
 import * as Joi from "joi";
-import UserModel, { IUserModel } from "../domain/user.model";
+import UserModel from "../domain/user.model";
 import UserValidation from "../domain/user.validation";
-import { IUserService } from "../domain/user.interface";
+import { IUserModel, IUserService } from "../domain/user.interface";
 import { Types } from "mongoose";
 import { IUserRepository } from "../domain/user.repository";
 
@@ -32,7 +32,7 @@ class UserService implements IUserService {
   }
   async findAll(): Promise<IUserModel[]> {
     try {
-      return await UserModel.find({});
+      return await UserModel.find();
     } catch (error) {
       throw new Error(error.message);
     }
@@ -47,7 +47,7 @@ class UserService implements IUserService {
         throw new Error(validate.error.message);
       } */
       const user = await this.userRepository.findOne(id);
-      return { name: user.name, email: user.email };
+      return user;
     } catch (error) {
       throw new Error(error.message);
     }

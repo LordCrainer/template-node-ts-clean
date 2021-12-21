@@ -1,5 +1,3 @@
-import { IUserModel } from "./user.model";
-
 /**
  * @export
  * @interface IUserService
@@ -37,3 +35,29 @@ export interface IUserService {
    */
   remove(id: string): Promise<Boolean>;
 }
+
+/**
+ * @export
+ * @interface IUserModel
+ * @extends {Document}
+ */
+export interface IUserModel {
+  name: string;
+  lastname: string;
+  email: string;
+  password: string;
+  roleId: string;
+  /*   passwordResetToken: string;
+  passwordResetExpires: Date; */
+
+  /*   facebook: string; */
+  tokens?: AuthToken[];
+
+  comparePassword: (password: string) => Promise<boolean>;
+  gravatar: (size: number) => string;
+}
+
+export type AuthToken = {
+  accessToken: string;
+  kind: string;
+};

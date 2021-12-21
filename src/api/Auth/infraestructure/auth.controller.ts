@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import { apiResponse } from "../auth.modules";
 import HttpError from "../../../config/error";
-import { IUserModel } from "../../User/domain/user.model";
+import { IUserModel } from "../../User/domain/user.interface";
 import app from "../../../config/server";
 import AuthService from "../aplication/auth.service";
 import UserRepositoryMongo from "../../User/infraestructure/user.repository.mongo";

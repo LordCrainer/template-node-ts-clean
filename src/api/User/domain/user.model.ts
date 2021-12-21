@@ -2,37 +2,7 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { Document, Schema, model } from "mongoose";
 import { NextFunction } from "express";
-
-/**
- * @export
- * @interface IUserModel
- * @extends {Document}
- */
-export interface IUserModel {
-  name: string;
-  lastname: string;
-  email: string;
-  password: string;
-  roleId: string;
-  /*   passwordResetToken: string;
-  passwordResetExpires: Date; */
-
-  /*   facebook: string; */
-  tokens?: AuthToken[];
-
-  comparePassword: (password: string) => Promise<boolean>;
-  gravatar: (size: number) => string;
-}
-
-type brandUser = {
-  name: string;
-  description?: string;
-};
-
-export type AuthToken = {
-  accessToken: string;
-  kind: string;
-};
+import { IUserModel } from "./user.interface";
 
 const UserSchema: Schema = new Schema(
   {

@@ -1,10 +1,11 @@
 import * as Joi from "joi";
 import AuthValidation from "../domain/auth.validation";
-import UserModel, { IUserModel } from "../../User/domain/user.model";
+import UserModel from "../../User/domain/user.model";
 import { IAuthService } from "../domain/auth.interface";
 import UserRepositoryMongo from "../../User/infraestructure/user.repository.mongo";
 import { IUserRepository } from "../../User/domain/user.repository";
 import Logger from "../../../config/lib/logger";
+import { IUserModel } from "api/User/domain/user.interface";
 
 /**
  * @export

@@ -1,8 +1,8 @@
 import { Router } from "express";
 import * as UserComponent from "./infraestructure/user.controller";
 import userValidation from "./domain/user.validation";
-import validator from "../shared/application/validator";
 import authController from "../auth/infraestructure/auth.controller";
+import { checkAuth } from "../shared/shared.modules";
 
 /**
  * @constant {express.Router}
@@ -23,7 +23,7 @@ router.get("/", authController.isAuthenticated, UserComponent.findAll);
 router.post(
   "/",
   authController.isAuthenticated,
-  validator(userValidation.create),
+  checkAuth(userValidation.create),
   UserComponent.create
 );
 
@@ -34,7 +34,7 @@ router.post(
 router.get(
   "/:id",
   authController.isAuthenticated,
-  validator(userValidation.getOne),
+  checkAuth(userValidation.getOne),
   UserComponent.findOne
 );
 

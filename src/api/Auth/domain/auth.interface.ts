@@ -1,4 +1,4 @@
-import { IUserModel } from '../../User/domain/user.model';
+import { IUserModel } from '../../User/domain/user.interface';
 
 /**
  * @export

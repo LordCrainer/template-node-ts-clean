@@ -1,6 +1,6 @@
-import * as Joi from 'joi';
-import Validation from '../../validation';
-import { IUserModel } from '../../User/domain/user.interface';
+import * as Joi from "joi";
+import Validation from "../../validation";
+import { IUserModel } from "../../User/domain/user.interface";
 
 /**
  * @export
@@ -8,50 +8,49 @@ import { IUserModel } from '../../User/domain/user.interface';
  * @extends Validation
  */
 class AuthValidation extends Validation {
+  /**
+   * Creates an instance of AuthValidation.
+   * @memberof AuthValidation
+   */
+  constructor() {
+    super();
+  }
+  /**
+   * @param {IUserModel} params
+   * @returns {Joi.ValidationResult}
+   * @memberof UserValidation
+   */
+  createUser(params: IUserModel): Joi.ValidationResult {
+    const schema: Joi.Schema = Joi.object().keys({
+      password: Joi.string().required(),
+      email: Joi.string()
+        .email({
+          minDomainSegments: 2,
+        })
+        .required(),
+      name: Joi.string(),
+    });
 
-     /**
-     * Creates an instance of AuthValidation.
-     * @memberof AuthValidation
-     */
-    constructor() {
-        super();
-    }
-    /**
-     * @param {IUserModel} params
-     * @returns {Joi.ValidationResult}
-     * @memberof UserValidation
-     */
-    createUser(
-        params: IUserModel
-    ): Joi.ValidationResult {
-        const schema: Joi.Schema = Joi.object().keys({
-            password: Joi.string().required(),
-            email: Joi.string().email({
-                minDomainSegments: 2
-            }).required(),
-            name: Joi.string()
-        });
+    return schema.validate(params);
+  }
+  /**
+   * @param {IUserModel} params
+   * @returns {Joi.ValidationResult}
+   * @memberof UserValidation
+   */
+  getUser(params: IUserModel): Joi.ValidationResult {
+    const schema: Joi.Schema = Joi.object().keys({
+      password: Joi.string().required(),
+      email: Joi.string()
+        .email({
+          minDomainSegments: 2,
+        })
+        .required(),
+      name: Joi.string(),
+    });
 
-        return schema.validate(params);
-    }
-    /**
-     * @param {IUserModel} params
-     * @returns {Joi.ValidationResult}
-     * @memberof UserValidation
-     */
-    getUser(
-        params: IUserModel
-    ): Joi.ValidationResult {
-        const schema: Joi.Schema = Joi.object().keys({
-            password: Joi.string().required(),
-            email: Joi.string().email({
-                minDomainSegments: 2
-            }).required(),
-            name: Joi.string()
-        });
-
-        return schema.validate(params);
-    } 
+    return schema.validate(params);
+  }
 }
 
 export default new AuthValidation();

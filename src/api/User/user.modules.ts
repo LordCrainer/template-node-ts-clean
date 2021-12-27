@@ -3,6 +3,6 @@ import jwt from "jsonwebtoken";
 import apiResponse from "../../Shared/utils/apiResponse";
 import uuid from "uuid";
 import http from "http";
-import jwtAuth from "../../config/middleware/jwtAuth";
+import checkAuth from "../../config/middleware/checkAuth";
 
-export { bcrypt, jwt, jwtAuth, apiResponse, uuid, http };
+export { bcrypt, jwt, checkAuth, apiResponse, uuid, http };

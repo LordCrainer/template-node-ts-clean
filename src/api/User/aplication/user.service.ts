@@ -24,8 +24,12 @@ class UserService implements IUserService {
       if (validate.error) {
         throw new Error(validate.error.message);
       } */
-      const user: IUserModel = await this.userRepository.save(body);
-      return user;
+      const user: IUserModel = new UserModel({
+        email: body.email,
+        password: body.password,
+      });
+      const saved: IUserModel = await this.userRepository.save(user);
+      return saved;
     } catch (error) {
       throw new Error(error.message);
     }

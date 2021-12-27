@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as UserComponent from "./infraestructure/user.controller";
-import { jwtAuth } from "./user.modules";
+import { checkAuth } from "./user.modules";
 
 /**
  * @constant {express.Router}
@@ -12,7 +12,7 @@ const router: Router = Router();
  * @example http://localhost:PORT/v1/users
  *
  */
-router.get("/", jwtAuth.isAuthenticated, UserComponent.findAll);
+router.get("/", checkAuth.isAuthenticated, UserComponent.findAll);
 
 /**
  * POST method route

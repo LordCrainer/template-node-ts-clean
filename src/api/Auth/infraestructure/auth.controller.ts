@@ -11,6 +11,7 @@ import AuthService from "../aplication/auth.service";
 import UserRepositoryMongo from "../../User/infraestructure/user.repository.mongo";
 import { IController } from "../../../Shared/domain/controller.interface";
 import { RequestWithUser } from "../../shared/domain/requestUser.interface";
+import UserService from "api/User/aplication/user.service";
 
 const inyectorAuthService = AuthService(UserRepositoryMongo);
 
@@ -93,8 +94,8 @@ const login = async (
 };
 
 const roleAuthorization =
-  (roles: string | string[], permission: string): IController =>
-  async (req, res, next) => {
+  (roles: string | string[], permission: string) =>
+  async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
     } catch (error) {}
   };
@@ -109,9 +110,7 @@ const isAuthenticated = (
   if (token) {
     try {
       const user: object | string = jwt.verify(token, app.get("secret"));
-
       req.user = user;
-
       return next();
     } catch (error) {
       return next(new HttpError(401, http.STATUS_CODES[401]));
@@ -124,4 +123,6 @@ const isAuthenticated = (
 export default {
   signup,
   login,
+  isAuthenticated,
+  roleAuthorization,
 };

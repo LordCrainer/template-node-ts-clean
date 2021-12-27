@@ -1,6 +1,8 @@
 import { Router } from "express";
 import * as UserComponent from "./infraestructure/user.controller";
-import { checkAuth } from "../shared/shared.modules";
+import userValidation from "./domain/user.validation";
+import validator from "../shared/application/validator";
+import authController from "../auth/infraestructure/auth.controller";
 
 /**
  * @constant {express.Router}
@@ -12,19 +14,29 @@ const router: Router = Router();
  * @example http://localhost:PORT/v1/users
  *
  */
-router.get("/", checkAuth.isAuthenticated, UserComponent.findAll);
+router.get("/", authController.isAuthenticated, UserComponent.findAll);
 
 /**
  * POST method route
  * @example http://localhost:PORT/v1/users
  */
-router.post("/", UserComponent.create);
+router.post(
+  "/",
+  authController.isAuthenticated,
+  validator(userValidation.create),
+  UserComponent.create
+);
 
 /**
  * GET method route
  * @example http://localhost:PORT/v1/users/:id
  */
-router.get("/:id", UserComponent.findOne);
+router.get(
+  "/:id",
+  authController.isAuthenticated,
+  validator(userValidation.getOne),
+  UserComponent.findOne
+);
 
 /**
  * DELETE method route

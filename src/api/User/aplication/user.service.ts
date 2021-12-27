@@ -1,6 +1,4 @@
-import * as Joi from "joi";
 import UserModel from "../domain/entities/user.model";
-import UserValidation from "../domain/user.validation";
 import { IUserModel, IUserService } from "../domain/user.interface";
 import { Types } from "mongoose";
 import { IUserRepository } from "../domain/user.repository";
@@ -19,11 +17,6 @@ class UserService implements IUserService {
   }
   async create(body: IUserModel): Promise<IUserModel> {
     try {
-      /* const validate: Joi.ValidationResult = UserValidation.createUser(body);
-
-      if (validate.error) {
-        throw new Error(validate.error.message);
-      } */
       const user: IUserModel = new UserModel({
         email: body.email,
         password: body.password,
@@ -43,13 +36,6 @@ class UserService implements IUserService {
   }
   async findOne(id: string) {
     try {
-      /*       const validate: Joi.ValidationResult = UserValidation.getUser({
-        id,
-      });
-
-      if (validate.error) {
-        throw new Error(validate.error.message);
-      } */
       const user = await this.userRepository.findOne(id);
       return user;
     } catch (error) {
@@ -58,11 +44,6 @@ class UserService implements IUserService {
   }
   async createUser(body: IUserModel): Promise<IUserModel> {
     try {
-      /* const validate: Joi.ValidationResult = UserValidation.createUser(body);
-
-      if (validate.error) {
-        throw new Error(validate.error.message);
-      } */
       const user: IUserModel = await UserModel.create(body);
       return user;
     } catch (error) {
@@ -71,11 +52,6 @@ class UserService implements IUserService {
   }
   async remove(id: string): Promise<Boolean> {
     try {
-      const validate: Joi.ValidationResult = UserValidation.removeUser({
-        id,
-      });
-      if (validate.error) throw new Error(validate.error.message);
-
       const isDeleted = await this.userRepository.deleteOne(id);
       return isDeleted;
     } catch (error) {

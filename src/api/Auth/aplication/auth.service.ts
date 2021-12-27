@@ -15,12 +15,6 @@ const AuthService = (userRepository: IUserRepository): IAuthService => {
   return {
     createUser: async (body: IUserModel): Promise<IUserModel> => {
       try {
-        const validate: Joi.ValidationResult = userValidation.createUser(body);
-
-        if (validate.error) {
-          throw new Error(validate.error.message);
-        }
-
         const user: IUserModel = new UserModel({
           email: body.email,
           password: body.password,
@@ -44,12 +38,6 @@ const AuthService = (userRepository: IUserRepository): IAuthService => {
     },
     getUser: async (body: IUserModel): Promise<IUserModel> => {
       try {
-        const validate: Joi.ValidationResult = userValidation.getUser(body);
-
-        if (validate.error) {
-          throw new Error(validate.error.message);
-        }
-
         const user: IUserModel = await UserModel.findOne({
           email: body.email,
         });

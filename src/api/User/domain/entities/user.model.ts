@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { Document, Schema, model } from "mongoose";
 import { NextFunction } from "express";
-import { IUserModel } from "./user.interface";
+import { IUserModel } from "../user.interface";
 
 const UserSchema: Schema = new Schema(
   {

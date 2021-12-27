@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as UserComponent from "./infraestructure/user.controller";
-import { checkAuth } from "./user.modules";
+import { checkAuth } from "../shared/shared.modules";
 
 /**
  * @constant {express.Router}

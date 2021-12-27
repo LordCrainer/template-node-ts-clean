@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import UserModel from "../domain/user.model";
+import UserModel from "../domain/entities/user.model";
 import UserValidation from "../domain/user.validation";
 import { IUserModel, IUserService } from "../domain/user.interface";
 import { Types } from "mongoose";

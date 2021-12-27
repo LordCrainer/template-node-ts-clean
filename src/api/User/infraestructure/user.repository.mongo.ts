@@ -3,7 +3,7 @@ import { Types } from "mongoose";
 import { IUserModel } from "../domain/user.interface";
 
 // import CopounValidation from "../domain/copoun.validation";
-import userModel from "../domain/user.model";
+import userModel from "../domain/entities/user.model";
 
 import { IUserRepository } from "../domain/user.repository";
 

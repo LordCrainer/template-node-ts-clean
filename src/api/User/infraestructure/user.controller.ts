@@ -2,7 +2,7 @@ import UserService from "../aplication/user.service";
 // import { HttpError } from "../../../../config/error";
 import { IUserModel } from "../domain/user.interface";
 import { NextFunction, Request, Response } from "express";
-import { apiResponse } from "../user.modules";
+import { apiResponse } from "../../shared/shared.modules";
 import UserRepositoryMongo from "./user.repository.mongo";
 import userDto from "../domain/user.dto";
 

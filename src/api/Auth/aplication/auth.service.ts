@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import UserModel from "../../User/domain/user.model";
+import UserModel from "../../User/domain/entities/user.model";
 import { IAuthService } from "../domain/auth.interface";
 import UserRepositoryMongo from "../../User/infraestructure/user.repository.mongo";
 import { IUserRepository } from "../../User/domain/user.repository";

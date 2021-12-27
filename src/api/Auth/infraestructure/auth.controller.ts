@@ -1,12 +1,16 @@
 import { NextFunction, Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
-import { apiResponse } from "../auth.modules";
-import HttpError from "../../../config/error";
+import {
+  http,
+  jwt,
+  apiResponse,
+  HttpError,
+  app,
+} from "../../shared/shared.modules";
 import { IUserModel } from "../../User/domain/user.interface";
-import app from "../../../config/server";
 import AuthService from "../aplication/auth.service";
 import UserRepositoryMongo from "../../User/infraestructure/user.repository.mongo";
-import { IController } from "Shared/domain/controller.interface";
+import { IController } from "../../../Shared/domain/controller.interface";
+import { RequestWithUser } from "../../shared/domain/requestUser.interface";
 
 const inyectorAuthService = AuthService(UserRepositoryMongo);
 
@@ -88,12 +92,33 @@ const login = async (
   }
 };
 
-const roleAuthorization = (roles: string | string[], permission: string):IController => async (req, res, next) => {
-  try {
-    
-  } catch (error) {
-    
+const roleAuthorization =
+  (roles: string | string[], permission: string): IController =>
+  async (req, res, next) => {
+    try {
+    } catch (error) {}
+  };
+
+const isAuthenticated = (
+  req: RequestWithUser,
+  res: Response,
+  next: NextFunction
+): void => {
+  const token: any = req.headers["access-token"];
+
+  if (token) {
+    try {
+      const user: object | string = jwt.verify(token, app.get("secret"));
+
+      req.user = user;
+
+      return next();
+    } catch (error) {
+      return next(new HttpError(401, http.STATUS_CODES[401]));
+    }
   }
+
+  return next(new HttpError(400, "No token provided"));
 };
 
 export default {

@@ -7,7 +7,7 @@ export interface IUserService {
    * @returns {Promise<IUserModel[]>}
    * @memberof IUserService
    */
-  findAll(): Promise<IUserModel[]>;
+  findAll(page: number, limit: number): Promise<IUserModel[]>;
 
   /**
    * @param {string} code

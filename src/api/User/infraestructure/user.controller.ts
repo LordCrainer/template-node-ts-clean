@@ -21,7 +21,11 @@ const findAll = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const users: IUserModel[] = await inyectionUserService.findAll();
+    const page = parseInt((req.query.page || 0).toString(), 10);
+    const limit = parseInt((req.query.limit || 10).toString(), 10);
+
+    const users: IUserModel[] = await inyectionUserService.findAll(page, limit);
+    
     apiResponse.result(res, userDto.multi(users), 200);
   } catch (error) {
     next(apiResponse.error(res, error.message.status, error.message));

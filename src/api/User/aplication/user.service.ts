@@ -34,9 +34,9 @@ class UserService implements IUserService {
       throw new Error(error.message);
     }
   }
-  async findAll(): Promise<IUserModel[]> {
+  async findAll(page, limit): Promise<IUserModel[]> {
     try {
-      return await UserModel.find();
+      return await this.userRepository.find(page, limit);
     } catch (error) {
       throw new Error(error.message);
     }

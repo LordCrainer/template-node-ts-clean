@@ -1,11 +1,11 @@
 import * as Joi from "joi";
-import AuthValidation from "../domain/auth.validation";
 import UserModel from "../../User/domain/user.model";
 import { IAuthService } from "../domain/auth.interface";
 import UserRepositoryMongo from "../../User/infraestructure/user.repository.mongo";
 import { IUserRepository } from "../../User/domain/user.repository";
 import Logger from "../../../config/lib/logger";
 import { IUserModel } from "api/User/domain/user.interface";
+import userValidation from "api/User/domain/user.validation";
 
 /**
  * @export
@@ -15,7 +15,7 @@ const AuthService = (userRepository: IUserRepository): IAuthService => {
   return {
     createUser: async (body: IUserModel): Promise<IUserModel> => {
       try {
-        const validate: Joi.ValidationResult = AuthValidation.createUser(body);
+        const validate: Joi.ValidationResult = userValidation.createUser(body);
 
         if (validate.error) {
           throw new Error(validate.error.message);
@@ -44,7 +44,7 @@ const AuthService = (userRepository: IUserRepository): IAuthService => {
     },
     getUser: async (body: IUserModel): Promise<IUserModel> => {
       try {
-        const validate: Joi.ValidationResult = AuthValidation.getUser(body);
+        const validate: Joi.ValidationResult = userValidation.getUser(body);
 
         if (validate.error) {
           throw new Error(validate.error.message);

@@ -39,9 +39,16 @@ class UserValidation extends Validation {
    * @returns {Joi.ValidationResult<{ id: string }>}
    * @memberof UserValidation
    */
-  getUser(body: { id: string }): Joi.ValidationResult {
+  getUser(body: IUserModel): Joi.ValidationResult {
     const schema: Joi.Schema = Joi.object().keys({
-      id: this.customJoi.objectId().required(),
+      id: this.customJoi.objectId(),
+      password: Joi.string().required(),
+      email: Joi.string()
+        .email({
+          minDomainSegments: 2,
+        })
+        .required(),
+      name: Joi.string(),
     });
 
     return schema.validate(body);

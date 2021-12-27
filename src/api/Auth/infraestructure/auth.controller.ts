@@ -6,6 +6,7 @@ import { IUserModel } from "../../User/domain/user.interface";
 import app from "../../../config/server";
 import AuthService from "../aplication/auth.service";
 import UserRepositoryMongo from "../../User/infraestructure/user.repository.mongo";
+import { IController } from "Shared/domain/controller.interface";
 
 const inyectorAuthService = AuthService(UserRepositoryMongo);
 
@@ -84,6 +85,14 @@ const login = async (
       status: 400,
       message: error.message,
     });
+  }
+};
+
+const roleAuthorization = (roles: string | string[], permission: string):IController => async (req, res, next) => {
+  try {
+    
+  } catch (error) {
+    
   }
 };
 
